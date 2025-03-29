@@ -11,19 +11,21 @@ const products = [
 ];
 
 const users = [
-    {id:1, login: '1', password: '1', type:'registeerd'},
-    {id:2, login: '2', password: '2', type:'VIP'},
-    {id:3, login: '3', password: '3', type:'VIP'}
+    {id:1, login: '1', password: '1', type:'registeerd',sale:4},
+    {id:2, login: '2', password: '2', type:'VIP',sale:20},
+    {id:3, login: '3', password: '3', type:'VIP',sale:20}
 ];
+
 let userType = 'publick';
 let user = {};
+
 function userVerification(login, password){
     for (let i =0;i<users.length;i++){
         if(users[i].login === login && users[i].password === password){ //&& user[i]['password']
-            return {
-                login: users[i].login, 
-                type: users[i].type
-            };
+            return users[i]; //{
+                // login: users[i].login, 
+                // type: users[i].type
+            // };
         }
     }
     return {};
@@ -34,15 +36,46 @@ if (confirm("Ви заєрестрований користувач")){
     let userPassword = prompt('Введіть пароль:');
 
     user = userVerification(userLogin,userPassword);
+
+    // if(user.hasOwnProperty('login')){
+    //     userType = user.type;
+    // }
+}
+
+function pDiv(img,name, price){
+    return "<div><img src = 'images/"+ img + 
+            "'><p>" + name+ 
+            "</p><p>" + Math.round(+price) + "</p></div>";
+}
+
+// Повертає рядок, -> 1) продукт для зареєстрованих,
+// 2) або пустий якщо товар vip і користувач нек зареєстровани 
+function addProduct(product){
     if(user.hasOwnProperty('login')){
-        userType = user.type;
+        if (user.type === 'VIP'){
+            return pDiv(product.img,product.name,((1-user.sale/100)*product.price));
+        }
+        else if(product.type !=='VIP'){
+            return pDiv(product.img,product.name,((1-user.sale/100)*product.price));
+        }
     }
+    else{
+        if (product.type !=='VIP'){
+            return pDiv(product.img, product.name, product.price);
+        }
+    }
+    return ''
 }
 console.log(userType);
 
-let content = "<div><header><h1>Funka</h1></header>";
+let content = "<header><h1>Funka</h1></header><main>";
 // TODO: вивести товари, різними цінами в залежності від людити
+let div  = '';
 
-content += "</div>"
+for (let i =0;i<products.length;i++){
+    div += addProduct(products[i]);
+}
 
-document.body.innerHTML
+content += div + "</main>";
+
+document.body.innerHTML =content;
