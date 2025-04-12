@@ -17,6 +17,20 @@ header h1 {
     text-align: center;
     text-transform: uppercase;
 }
+mian button{
+    background-color: brown;
+}
+.board{
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+}
+.board img{
+    width: 25%;
+    vertical-align: bottom;
+}
+
+
 /*---modal window ---*/
 
 .rules{
