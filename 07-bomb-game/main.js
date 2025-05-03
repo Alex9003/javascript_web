@@ -23,10 +23,20 @@ let bombs = [
     15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
     30, 31, 32, 33, 34, 35, 36, 37, 38, 39
 ]
-for (let i = 0; i < bombs.length; i++) {
-    gridDivs[bombs[i]].classList.add('bomb')
-    
+let bombsRemoved = []
+function drawnBombs(bombsList){
+    for (let i = 0; i < bombsList.length; i++) {
+        if(!bombsRemoved.includes(i))
+            gridDivs[bombsList[i]].classList.add('bomb')
+    }
 }
+drawnBombs(bombs)
+function removeBombs(bombsList){
+    for (let i = 0; i < bombs.length; i++) {
+        gridDivs[bombs[i]].classList.remove('bomb')
+    }
+}
+
 let shooterIndex = 217;
 gridDivs[shooterIndex].classList.add('shooter')
 function moveShooter(event){
@@ -57,11 +67,17 @@ function shoot(event){
             clearInterval(setIntervalIndex)
         }
         if(gridDivs[currentShootIndex].classList.contains('bomb')){
-            gridDgridDivs[currentShootIndex].classList.remove('bomb');
+            gridDivs[currentShootIndex].classList.remove('bomb');
             gridDivs[currentShootIndex].classList.add('explosion.png');
             
+            bombsRemoved.push(bombs.indexOf(currentShootIndex))
+            clearInterval(setIntervalIndex)
+            
         }
-        console.log(setIntervalIndex)
+        else{
+            gridDivs[currentShootIndex].classList.add('shoot')
+        }
+        // console.log(setIntervalIndex)
         
         gridDivs[currentShootIndex].classList.add('shoot')
     }
@@ -71,6 +87,39 @@ function shoot(event){
         setIntervalIndex = setInterval(moveShooter, 100)
     }
 }
+let yStep = 0, xSet = 1;
+let directionRight = true
+function moveBombs(bombsList){
+    removeBombs(bombsList)
+    yStep = 0
+    if(directionRight && 
+        bombsList[bombsList.length-1] % gridWidth == gridWidth-1){
+            directionRight = false;
+            xSet = -1;
+            yStep = gridWidth
+        }
+    if(!directionRight && 
+        bombsList[0] % gridWidth == 0){
+            directionRight = true;
+            xSet = 1;
+            yStep = gridWidth
+        } 
+    for (let i = 0; i < bombsList.length; i++) {
+        bombsList[i] += xSet + yStep;
+          
+     }
+    drawnBombs(bombsList)
+    if(bombsList.length == bombsRemoved.length){
+        
+        document.getElementById('main-el').classList.add('win')
+        clearInterval(gameLoopId);
+    }
+    if(bombsList[bombsList.length-1] >210){
+        document.getElementById('main-el').classList.add('lose')
+        clearInterval(gameLoopId);     
+    }
+}
+let gameLoopId = setInterval(moveBombs, 500, bombs);
 
 document.addEventListener('keydown',moveShooter)
 document.addEventListener('keydown',shoot)

@@ -17,3 +17,9 @@
 .shoot{
     background-image: url('img/shoot.png');
 }
+.win{
+    background-color: blue;
+}
+.lose{
+    background-color: red;
+}
