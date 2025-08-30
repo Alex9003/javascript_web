@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JavaScript Function</h1>
+    <script>
+        //The most coomom variant of function 
+        function great() {
+            console.log("Great!");
+        }
+        great();
+        //Function with parameters
+        function greetUser(name) {
+            console.log(`Hello, ${name}!`);
+        }
+        greetUser("John");
+        //function with default parameters
+        function greetUserWithDefault(name = "Guest") {
+            console.log(`Hello, ${name}!`);
+        }
+        greetUserWithDefault();
+        greetUserWithDefault("Alice");
+
+
+        function add(a, b) {
+            return a + b;
+        }
+        let mas = [1, 2, 3, 4, 5];
+        //a.reduce((sum, num) => sum + num, 0);
+        //function add many numbers
+        function addMany(...numbers) {
+            return numbers.reduce((sum, num) => sum + num, 0);
+        }
+
+        //function a / b
+        function divide(a, b) {
+            if (b === 0) {
+                return "Error: Division by zero";
+            }
+            return a / b;
+        }
+        console.log(divide(10, 2)); // 5
+        console.log(divide(10, 0)); // Error: Division by zero
+
+
+        //function returns object
+        function createUser(name, age) {
+            return { name, age };
+        }
+        const user = createUser("Bob", 30);
+        console.log(user); // { name: 'Bob', age: 30 }
+
+        //make const = function
+        const multiply = function (a, b) {
+            return a * b;
+        };
+        console.log(multiply(3, 4)); // 12 
+        const square = (x) => x * x;
+        console.log(square(5)); // 25
+
+
+        const foktorial = function fact(n) {
+            if (n <= 1) return 1;
+            return n * fact(n - 1);
+        };
+        console.log(foktorial(5)); // 120
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+</head>
+<body>
+    <h1>JavaScript Class</h1>
+    <script>
+        //Class declaration
+        class User {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            greet() {
+                console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+            }
+        }
+        const user1 = new User("Alice", 25);
+        user1.greet();
+        const user2 = new User("Bob", 30);
+        user2.greet();
+        //Class expression
+        const Animal = class {
+            constructor(type, sound) {
+                this.type = type;
+                this.sound = sound;
+            }
+            makeSound() {
+                console.log(`${this.type} says ${this.sound}`);
+            }
+        };
+        const dog = new Animal("Dog", "Woof");
+        dog.makeSound();
+        const cat = new Animal("Cat", "Meow");
+        cat.makeSound();
+        //Class with static method
+        class MathUtil {
+            static add(a, b) {
+                return a + b;
+            }
+            static multiply(a, b) {
+                return a * b;
+            }
+        }
+        console.log(MathUtil.add(5, 3)); // 8
+        console.log(MathUtil.multiply(5, 3)); // 15
+        </script>
+</body>
+</html>
