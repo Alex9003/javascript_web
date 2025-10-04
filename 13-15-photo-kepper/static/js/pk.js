@@ -144,6 +144,7 @@ class ImageUploader{
 
         this.effectSlider = document.getElementById('effectLevel');
         this.currentEffect = 'none';
+        this.submitButton = document.getElementById('uploadSubmit');
         this.initEventListeners();
     }
     initEventListeners(){
@@ -165,6 +166,8 @@ class ImageUploader{
 
                     this.uploadImageOverlay.classList.remove('hidden');
                 };
+                this.submitButton.removeAttribute('disabled');
+                this.submitButton.classList.add('active');
             }
             else {
                 alert('Будь ласка, виберіть файл зображення.');
@@ -205,6 +208,17 @@ class ImageUploader{
             this.uploadImage.style.filter = `${this.currentEffect}(${value}%)`;                                            
         } else if (this.uploadImage) {
             this.uploadImage.style.filter = 'none';
+        }
+    }
+    initValidation(){
+        const changeStatusSubmitButton = (active) => {
+            if (active) {
+                this.submitButton.removeAttribute('disabled');
+                this.submitButton.classList.add('active');
+            } else {
+                this.submitButton.setAttribute('disabled', 'disabled');
+                this.submitButton.classList.remove('active');
+            }
         }
     }
 }
